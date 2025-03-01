@@ -391,3 +391,304 @@ app.listen(3000, () => console.log("Server running on port 3000"));
 
 
 
+--------------------------------------------------------------------------------------------------------
+
+
+**************
+
+# **JavaScript: call(), apply(), and bind() - Explained with Real-World Examples**
+
+## **Introduction**
+In JavaScript, functions are objects, and we can control their execution context (`this`) using:
+
+- **`call()`** → Immediately calls the function with a specified `this` value.
+- **`apply()`** → Same as `call()`, but arguments are passed as an array.
+- **`bind()`** → Returns a new function with `this` bound to a specific object, without executing it immediately.
+
+---
+
+## **Real-World Analogy: Driver and Car** 🚗
+
+Imagine a **driver** who can drive any **car**, but each car doesn’t have its own `drive` function. We will borrow the `drive` function from `driver` using `call`, `apply`, and `bind`.
+
+```js
+const driver = {
+    name: "Man Raj",
+    drive: function(speed) {
+        console.log(`${this.name} is driving at ${speed} km/h`);
+    }
+};
+
+const car = { name: "Tesla" };
+```
+
+---
+
+## **1. `call()` – Immediate Execution**
+```js
+driver.drive.call(car, 80);
+```
+**Output:**
+```
+Tesla is driving at 80 km/h
+```
+### **Syntax:**
+```js
+functionName.call(thisValue, arg1, arg2, ...);
+```
+- **Executes the function immediately**
+- `thisValue` is the object to be used as `this`
+- Arguments are passed **individually**
+
+---
+
+## **2. `apply()` – Immediate Execution with Array Arguments**
+```js
+driver.drive.apply(car, [100]);
+```
+**Output:**
+```
+Tesla is driving at 100 km/h
+```
+### **Syntax:**
+```js
+functionName.apply(thisValue, [arg1, arg2, ...]);
+```
+- Same as `call()`, but **arguments are passed as an array**
+- Useful when arguments are stored in an array
+
+Example with dynamic values:
+```js
+const speeds = [120];
+driver.drive.apply(car, speeds);
+```
+
+---
+
+## **3. `bind()` – Returns a New Function**
+```js
+const driveTesla = driver.drive.bind(car, 90);
+driveTesla(); // Executing later
+```
+**Output:**
+```
+Tesla is driving at 90 km/h
+```
+### **Syntax:**
+```js
+const newFunction = functionName.bind(thisValue, arg1, arg2, ...);
+```
+- **Does not execute the function immediately**
+- **Returns a new function** with `this` bound to `thisValue`
+- Can be executed later
+
+---
+
+## **Key Differences**
+
+| Method  | Execution | Arguments Passing | Returns |
+|---------|-----------|------------------|---------|
+| `call()`  | Immediately | Individually | `undefined` |
+| `apply()` | Immediately | As an array | `undefined` |
+| `bind()`  | Later (when called) | Individually | New function |
+
+---
+
+## **Practical Use Cases**
+
+### **1. Function Borrowing**
+```js
+const person1 = { name: "Alice" };
+const person2 = { name: "Bob" };
+
+function greet() {
+    console.log(`Hello, I am ${this.name}`);
+}
+
+greet.call(person1); // Hello, I am Alice
+greet.call(person2); // Hello, I am Bob
+```
+
+### **2. Using `bind()` in Event Listeners**
+```js
+class ButtonHandler {
+    constructor() {
+        this.count = 0;
+    }
+
+    increment() {
+        this.count++;
+        console.log("Count: ", this.count);
+    }
+}
+
+const handler = new ButtonHandler();
+const button = document.querySelector("button");
+button.addEventListener("click", handler.increment.bind(handler));
+```
+👉 Without `bind()`, `this` would refer to the button element instead of `handler`.
+
+### **3. Using `bind()` for Partial Functions (Currying)**
+```js
+function multiply(a, b) {
+    return a * b;
+}
+
+const double = multiply.bind(null, 2);
+console.log(double(5)); // 10 (2 * 5)
+```
+
+---
+
+## **Conclusion**
+
+| Method  | When to Use |
+|---------|------------|
+| `call()`  | When you need to call a function immediately with a different `this` context. |
+| `apply()` | When you need to call a function immediately with arguments in an array. |
+| `bind()`  | When you need to create a new function with a fixed `this` value for later execution. |
+
+📌 **`call` and `apply` execute immediately, while `bind` returns a function for later use.**
+
+---
+
+
+
+---------------------------------------------------
+
+
+
+# **Function Currying in JavaScript** 🚀  
+
+## **📌 What is Currying?**  
+Currying ek technique hai jisme **ek function multiple arguments lene ke bajaye ek argument lekar ek naya function return karta hai** jo next argument leta hai, aur yeh process tab tak chalta hai jab tak saare arguments mil na jayein.  
+
+### **Simple Terms:**  
+- Normal function → `sum(2,3,5) = 10`  
+- Curried function → `sum(2)(3)(5) = 10`  
+
+---
+
+## **🔹 Why Use Currying?**  
+✅ **Code Reusability** – Ek hi function ko multiple scenarios me use kar sakte ho.  
+✅ **Better Readability** – Complex function calls ko simple aur modular banata hai.  
+✅ **Functional Programming** – Yeh concept functional programming me kaafi useful hota hai.  
+
+---
+
+## **🔹 Example 1: Normal Function vs. Curried Function**  
+
+### **👉 Normal Function**  
+```js
+function add(a, b, c) {
+    return a + b + c;
+}
+
+console.log(add(2, 3, 5)); // Output: 10
+```
+
+### **👉 Curried Function**  
+```js
+function add(a) {
+    return function (b) {
+        return function (c) {
+            return a + b + c;
+        };
+    };
+}
+
+console.log(add(2)(3)(5)); // Output: 10
+```
+👉 Har baar ek argument lekar ek **naya function return** hota hai, jab tak saare arguments mil na jayein.  
+
+---
+
+## **🔹 Example 2: Using Arrow Functions** 🚀  
+```js
+const multiply = a => b => c => a * b * c;
+
+console.log(multiply(2)(3)(4)); // Output: 24
+```
+🔹 Yeh concise syntax me likhne ka tareeka hai jo readability ko improve karta hai.  
+
+---
+
+## **🔹 Example 3: Currying in Real-World Scenario**  
+
+### **👉 1. Custom Greeting Function**  
+```js
+function greet(greeting) {
+    return function (name) {
+        return `${greeting}, ${name}!`;
+    };
+}
+
+const sayHello = greet("Hello");
+console.log(sayHello("Man Raj"));  // Output: Hello, Man Raj!
+console.log(sayHello("Rahul"));    // Output: Hello, Rahul!
+```
+✅ Ek **generic greeting function** ban gaya jo kisi bhi name ke saath use ho sakta hai.  
+
+---
+
+### **👉 2. Filtering with Currying**  
+```js
+const filterArray = filter => array => array.filter(filter);
+
+const isEven = num => num % 2 === 0;
+const evenNumbers = filterArray(isEven);
+
+console.log(evenNumbers([1, 2, 3, 4, 5, 6])); // Output: [2, 4, 6]
+```
+✅ Yeh **functional programming** ka ek powerful use case hai!  
+
+---
+
+## **🔹 Converting Normal Function to Curried Function**  
+Agar ek normal function hai to usko currying me convert karne ke liye ek utility function bana sakte ho.  
+
+```js
+function curry(fn) {
+    return function curried(...args) {
+        if (args.length >= fn.length) {
+            return fn.apply(this, args);
+        } else {
+            return (...nextArgs) => curried(...args, ...nextArgs);
+        }
+    };
+}
+
+// Normal function
+function sum(a, b, c) {
+    return a + b + c;
+}
+
+// Currying function
+const curriedSum = curry(sum);
+
+console.log(curriedSum(2)(3)(5)); // Output: 10
+console.log(curriedSum(2, 3)(5)); // Output: 10
+console.log(curriedSum(2)(3, 5)); // Output: 10
+```
+✅ **Dynamic arguments handle kar sakta hai** – Chahe ek-ek karke do ya ek sath!  
+
+---
+
+## **🔹 Conclusion**  
+| Feature  | Normal Function | Curried Function |
+|----------|----------------|------------------|
+| **Syntax** | `sum(2, 3, 5)` | `sum(2)(3)(5)` |
+| **Reusability** | Limited | High |
+| **Readability** | Sometimes complex | More readable for specific use cases |
+| **Functional Programming** | ❌ | ✅ Used in FP concepts |
+
+📌 **Currying ka main benefit yeh hai ki tum functions ko easily reuse aur customize kar sakte ho without modifying original logic!**  
+
+---
+
+## **🔥 Summary**  
+✅ **Currying ek function programming technique hai jisme ek function ek argument leta hai aur ek naya function return karta hai.**  
+✅ **Real-world uses:** Event handlers, API customization, filtering, logging functions, etc.  
+✅ **JS me arrow functions aur closures ka use karke concise aur powerful currying functions bana sakte ho!**  
+
+Agar aur deep dive karna hai to batao bhai! 🚀🔥

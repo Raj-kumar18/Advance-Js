@@ -61,11 +61,33 @@
 // outerFunction();
 
 
-function clickHandler(color){
-    return function(){
-        document.body.style.backgroundColor = `${color}`;
+// function clickHandler(color){
+//     return function(){
+//         document.body.style.backgroundColor = `${color}`;
+//     }
+// }
+
+// document.getElementById("orange").onclick = clickHandler('orange');
+// document.getElementById("green").onclick = clickHandler('green');
+// ----------------------------------------------------------------------------------------------------------------
+
+
+// 3️⃣ Call Apply Bind
+console.log('Call Apply Bind');
+
+const user = {
+    name: 'John',
+    age: 25,
+    showDetails: function () {
+        console.log(`Name: ${this.name} Age: ${this.age}`);
     }
+
 }
 
-document.getElementById("orange").onclick = clickHandler('orange');
-document.getElementById("green").onclick = clickHandler('green');
+const user2 = {
+    name: 'Bob',
+    age: 30
+}
+
+const print = user.showDetails.bind(user2);
+print(); 
