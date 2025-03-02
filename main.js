@@ -73,21 +73,103 @@
 
 
 // 3️⃣ Call Apply Bind
-console.log('Call Apply Bind');
+// console.log('Call Apply Bind');
 
-const user = {
-    name: 'John',
-    age: 25,
-    showDetails: function () {
-        console.log(`Name: ${this.name} Age: ${this.age}`);
-    }
+// const user = {
+//     name: 'John',
+//     age: 25,
+//     showDetails: function () {
+//         console.log(`Name: ${this.name} Age: ${this.age}`);
+//     }
 
-}
+// }
 
-const user2 = {
-    name: 'Bob',
-    age: 30
-}
+// const user2 = {
+//     name: 'Bob',
+//     age: 30
+// }
 
-const print = user.showDetails.bind(user2);
-print(); 
+// const print = user.showDetails.bind(user2);
+// print(); 
+
+
+//function borrowing
+// const user = {
+//     fname: 'John',
+//     lname: 'Doe',
+//     getfullName: function (greeting, message) {
+//         return `${greeting} ${this.fname} ${this.lname} ${message}`;
+//     }
+// }
+
+// const user2 = {
+//     fname: 'Bob',
+//     lname: 'Smith'
+// }
+
+// console.log(user.getfullName.call(user2, 'Hello', 'How are you?'));
+// console.log(user.getfullName.apply(user2, ['Hello', 'How are you?']));
+
+
+// 4️⃣ Currying
+// console.log('Currying');
+
+// function multiply(a, b, c) {
+//     return a * b * c;
+// }
+
+// const result = multiply(1, 2, 3);
+// console.log(result);
+
+// function Currying(a) {
+//     return function (b) {
+//         return function (c) {
+//             return a * b * c;
+//         }
+//     }
+// }
+
+// const result2 = Currying(1)(2)(3);
+// console.log(result2);
+
+
+// function multiply(a,b){
+//     return a*b;
+// }
+
+// const doubleIt = multiply.bind(null,2);
+// console.log(doubleIt(4)); // 8
+
+// async function fetchData(baseUrl,endpoint){
+//     const response = await fetch(`${baseUrl}/${endpoint}`);
+//     const data = await response.json()
+//     return data
+// }
+
+// const getTodoData = fetchData.bind(null,'https://jsonplaceholder.typicode.com');
+// console.log(getTodoData('/todos/'));
+
+
+// const getOneTodoData = fetchData.bind(null,'https://jsonplaceholder.typicode.com');
+// console.log(getOneTodoData('/todos/1'));
+
+
+// class User {
+//     name;
+
+//     constructor(name) {
+//         this.name = name;
+//         this.printName = this.printName.bind(this);
+//     }
+
+//     printName() {
+//         console.log(this.name);
+//     }
+// }
+
+// const user = new User('Raj kumar');
+// console.log(user)
+
+// const btn = document.querySelector('#clickMe');
+// btn.addEventListener('click', user.printName);
+// btn.addEventListener('click',user.printName.bind(user));

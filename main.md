@@ -691,4 +691,4 @@ console.log(curriedSum(2)(3, 5)); // Output: 10
 ✅ **Real-world uses:** Event handlers, API customization, filtering, logging functions, etc.  
 ✅ **JS me arrow functions aur closures ka use karke concise aur powerful currying functions bana sakte ho!**  
 
-Agar aur deep dive karna hai to batao bhai! 🚀🔥
+
