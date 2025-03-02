@@ -173,3 +173,33 @@
 // const btn = document.querySelector('#clickMe');
 // btn.addEventListener('click', user.printName);
 // btn.addEventListener('click',user.printName.bind(user));
+
+
+// 5️⃣ Event Bubbling and Event Capturing
+// console.log('Event Bubbling and Event Capturing');
+
+// document.getElementById("parent").addEventListener('click',function(){
+//     console.log('Parent clicked');
+// })
+
+// document.getElementById("child").addEventListener('click',function(e){
+
+//     console.log('Child clicked');
+//     e.stopPropagation()
+// })
+
+// document.getElementById("parent").addEventListener('click',function(){
+//     console.log('Parent clicked');
+// },true) // Enable Event Capturing
+
+// document.getElementById("child").addEventListener('click',function(e){
+//     console.log('Child clicked');
+// },true) // Enable Event Capturing
+
+
+// document.getElementById("job-container").addEventListener('click',function(e){
+//     if(e.target.classList.contains("apply-btn")){
+//         let jobTitle = e.target.parentElement.querySelector('h3').textContent;
+//         alert(`You have applied for ${jobTitle}`);
+//     }
+// })
