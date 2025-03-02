@@ -1,4 +1,4 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -6,8 +6,8 @@
     background-color: #222;
     color: #fff;
 }
-h1{
-    font-size: 2rem;
-    margin: 1rem 0;
-    text-align: center;
+
+.container {
+    width: 100%;
+    height: 200vh;
 }
